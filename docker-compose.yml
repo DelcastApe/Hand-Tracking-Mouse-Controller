@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:
+  hand-mouse:
+    build: .
+    container_name: hand-mouse-controller
+    environment:
+      - DISPLAY=${DISPLAY}      # usa el display del host
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix  # socket X11
+      - ./src:/app/src                  # para editar código en caliente
+    devices:
+      - /dev/video0:/dev/video0         # cámara principal (en Linux)
+    network_mode: host                  # para que pyautogui pueda interactuar bien
+    ipc: host
